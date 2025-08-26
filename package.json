@@ -229,7 +229,7 @@
   "version": "0.2.1",
   "nx": {},
   "scripts": {
-    "start": "npx concurrently --kill-others 'npx nx run-many -t start -p twenty-server twenty-front' 'npx wait-on tcp:3000 && npx nx run twenty-server:worker'"
+    "start": "concurrently --kill-others 'yarn nx run-many -t start -p twenty-server twenty-front' 'bash -lc \"for i in {1..60}; do nc -z localhost 3000 && break; sleep 1; done; yarn nx run twenty-server:worker\"'"
   },
   "workspaces": {
     "packages": [
