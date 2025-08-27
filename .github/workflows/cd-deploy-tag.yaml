@@ -5,11 +5,13 @@ on:
       - 'v*'
 jobs:
   deploy-tag:
+    env:
+      HAS_INFRA_TOKEN: ${{ secrets.TWENTY_INFRA_TOKEN }}
     timeout-minutes: 3
     runs-on: ubuntu-latest
     steps:
       - name: Repository Dispatch
-        if: ${{ secrets.TWENTY_INFRA_TOKEN != '' }}
+        if: ${{ env.HAS_INFRA_TOKEN != '' }}
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.TWENTY_INFRA_TOKEN }}
