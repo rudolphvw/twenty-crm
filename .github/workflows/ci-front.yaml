@@ -143,7 +143,7 @@ jobs:
           touch .env
           echo "REACT_APP_SERVER_BASE_URL: $REACT_APP_SERVER_BASE_URL" >> .env
       - name: Publish to Chromatic
-        if: env.CHROMATIC_PROJECT_TOKEN != ''
+        if: ${{ env.CHROMATIC_PROJECT_TOKEN != '' }}
         run: npx nx run twenty-front:chromatic:ci
   front-task:
     needs: changed-files-check
