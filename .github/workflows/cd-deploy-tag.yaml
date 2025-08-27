@@ -5,6 +5,7 @@ on:
       - 'v*'
 jobs:
   deploy-tag:
+    if: ${{ secrets.TWENTY_INFRA_TOKEN != '' }}
     timeout-minutes: 3
     runs-on: ubuntu-latest
     steps:
