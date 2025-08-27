@@ -121,7 +121,7 @@ jobs:
         run: npx nx storybook:coverage twenty-front --checkCoverage=true --configuration=${{ matrix.storybook_scope }}
   front-chromatic-deployment:
     timeout-minutes: 30
-    if: contains(github.event.pull_request.labels.*.name, 'run-chromatic') || (github.event_name == 'push' && env.CHROMATIC_PROJECT_TOKEN != '')
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'run-chromatic'))
     needs: front-sb-build
     runs-on: ubuntu-latest
     env:
@@ -143,6 +143,7 @@ jobs:
           touch .env
           echo "REACT_APP_SERVER_BASE_URL: $REACT_APP_SERVER_BASE_URL" >> .env
       - name: Publish to Chromatic
+        if: env.CHROMATIC_PROJECT_TOKEN != ''
         run: npx nx run twenty-front:chromatic:ci
   front-task:
     needs: changed-files-check
