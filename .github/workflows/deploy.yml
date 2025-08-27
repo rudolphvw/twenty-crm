@@ -37,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: twenty/packages/twenty-docker/twenty/Dockerfile
+          file: packages/twenty-docker/twenty/Dockerfile
           push: true
           platforms: linux/amd64
           tags: |
